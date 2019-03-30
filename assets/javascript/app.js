@@ -35,8 +35,20 @@ function processFooter     ( item ) {
 
 function processCardBody   ( item ) {
 	var divBody =   $( "<div>" );
-	divBody.addClass ( "card-body" );
-	divBody.append   ( "body" );
+	var img     =   $( "<img>" );
+	
+	divBody.addClass ( "card-body m-auto" );
+	
+	//item.images.fixed_height_still.url creo que no
+	//item.images.fixed_width_still.url
+	//item.images.fixed_width.url
+	
+	img.attr     ( "src",          item.images.fixed_width_still.url );
+	img.attr     ( "data-still",   item.images.fixed_width_still.url );
+	img.attr     ( "data-animate", item.images.fixed_width.url       );
+	img.attr     ( "data-state",   "still" );
+	img.addClass ( "gifs" );
+	divBody.append   ( img );
 	return divBody;
 };
 
@@ -48,10 +60,8 @@ function processCardHeader ( item ) {
 };
 
 function processCard (item) {
-	console.log ( "item", item);
 	var divCard =    $( "<div>" );
 	divCard.addClass  ( "card border-success m-3" );
-	//divCard.attr      ( "style", "max-width: 18rem;" );
 	divCard.attr      ( "style", "width: 18rem;" );
 	divCard.append    ( processCardHeader ( item ) );   // Card header
 	divCard.append    ( processCardBody   ( item ) );   // Card body (image)
@@ -60,6 +70,7 @@ function processCard (item) {
 };
 
 function processInfo (data) {
+  console.log (data);	
 	for (ct = 0; ct < data.length; ct ++) {
 		processCard ( data [ct] );
 	};
@@ -87,11 +98,12 @@ function showArrTopics () {
   r.empty ();
   for (ct = 0; ct < arrTopics.length; ct ++) {
 	  b = $( "<button>" );
-	  b.addClass ( "btn btn-outline-primary btn-sm mx-1" );
+	  b.addClass ( "btn btn-outline-primary btn-sm m-1" );
 	  b.attr ( "id", "topicBtn" );
 	  b.attr ( "data-topic", arrTopics [ct] );
 	  b.text ( arrTopics [ct] );
       r.append ( b );
+	  //$("#topicInput").empty; Falta borrar el contenido del input
   }
 };
 
@@ -119,5 +131,17 @@ $(document).ready(function() {
 								showArrTopics();
 							}
 						});
+	$("#row2").on ( "click", 
+	                ".gifs",
+					function () {
+						if ( $(this).attr ("data-state") === "still" ) {
+							$(this).attr ("src",        $(this).attr ("data-animate") );
+							$(this).attr ("data-state", "animate");
+						  } else {
+							$(this).attr ("src",        $(this).attr ("data-still") );
+							$(this).attr ("data-state", "still");
+						  }
+
+					});
 					   
 }); // document.ready
