@@ -1,8 +1,10 @@
 /* style.css            */
 /* GifTastic: GIPHY API */
-/* 25/Mar/2019          */
+/* 30/Mar/2019          */
 
 body {
+    background-image:   url("../images/subtle_grunge.png");
+    background-repeat:  repeat;
 }
 
 

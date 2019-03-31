@@ -39,10 +39,6 @@ function processCardBody   ( item ) {
 	
 	divBody.addClass ( "card-body m-auto" );
 	
-	//item.images.fixed_height_still.url creo que no
-	//item.images.fixed_width_still.url
-	//item.images.fixed_width.url
-	
 	img.attr     ( "src",          item.images.fixed_width_still.url );
 	img.attr     ( "data-still",   item.images.fixed_width_still.url );
 	img.attr     ( "data-animate", item.images.fixed_width.url       );
@@ -66,7 +62,7 @@ function processCard (item) {
 	divCard.append    ( processCardHeader ( item ) );   // Card header
 	divCard.append    ( processCardBody   ( item ) );   // Card body (image)
 	divCard.append    ( processFooter     ( item ) );   // card footer
-	$("#row2").append ( divCard );
+	$("#row2").prepend ( divCard ); 
 };
 
 function processInfo (data) {
@@ -83,8 +79,6 @@ function clicTopicBtn (topic) {
               method: "GET"} )
 		.then (
 			function (response, textStatus) {
-				// FALTA revisar: si no hay registros hay que mandar un mensaje especial al usuario
-				// Puede faltar reducir ancho de la Card para moviles (18rem)
 			if (textStatus == "success") {
 				processInfo ( response.data );
 			} else {
@@ -103,7 +97,7 @@ function showArrTopics () {
 	  b.attr ( "data-topic", arrTopics [ct] );
 	  b.text ( arrTopics [ct] );
       r.append ( b );
-	  //$("#topicInput").empty; Falta borrar el contenido del input
+	  $("#topicInput").val ( "" );
   }
 };
 
@@ -131,7 +125,8 @@ $(document).ready(function() {
 								showArrTopics();
 							}
 						});
-	$("#row2").on ( "click", 
+						
+	$("#row2").on ( "click", 					 // clic to play or stop the GIF
 	                ".gifs",
 					function () {
 						if ( $(this).attr ("data-state") === "still" ) {
