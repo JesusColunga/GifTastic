@@ -1,6 +1,6 @@
 /* app.js                */
 /* GifTastic: GIPHY API  */
-/* 29/Mar/2019           */
+/* 30/Mar/2019           */
 
 
 // GLOBAL VARIABLES
